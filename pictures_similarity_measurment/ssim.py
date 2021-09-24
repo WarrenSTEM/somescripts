@@ -10,17 +10,20 @@ from skimage.metrics import structural_similarity
 from imageio import imread
 import numpy as np
 
+# image read in the method of array: <class 'imageio.core.util.Array'>
 image0 = imread('./pic/0.bmp')
 image1 = imread('./pic/1.bmp')
 
-image1 = np.resize(image1, (image0.shape[0], image0.shape[1], image0.shape[2]))
+# for debug
+"""
+print(type(image0))
+"""
 
-# image0 = np.reshape(image0, -1)
-# image1 = np.reshape(image1, -1)
+# image1 = np.resize(image1, (image0.shape[0], image0.shape[1], image0.shape[2]))  # guess for RGB
 
 print(image0.shape)
 print(image1.shape)
 
 ssim = structural_similarity(image0, image1, multichannel=True)
 
-print(ssim)
+print("The mean structural similarity: ", ssim)
