@@ -11,8 +11,11 @@ from imageio import imread
 import numpy as np
 
 # image read in the method of array: <class 'imageio.core.util.Array'>
-image0 = imread('./pic/0.bmp')
-image1 = imread('./pic/1.bmp')
+# image0 = imread('./pic/0.bmp')
+# image1 = imread('./pic/1.bmp')
+
+image0 = imread('./test/0.png')
+image1 = imread('./test/1.png')
 
 # for debug
 """

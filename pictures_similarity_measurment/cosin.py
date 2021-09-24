@@ -4,8 +4,8 @@ from numpy import average, linalg, dot
 import os
 
 # 缩放并转换为灰度图
-def get_thumbnail(image, size=(100, 100), greyscale=False):
-    image = image.resize(size, Image.ANTIALIAS)  # 带ANTIALIAS滤镜高质量缩放
+def get_thumbnail(image, size=(120, 120), greyscale=True):
+    # image = image.resize(size, Image.ANTIALIAS)  # 带ANTIALIAS滤镜高质量缩放
     if greyscale:
         image = image.convert('L')  # 转换为灰度图像 0为黑 255为白
     return image
@@ -14,23 +14,33 @@ def get_thumbnail(image, size=(100, 100), greyscale=False):
 def image_similarity_vectors_via_numpy(image0, image1):
     image0 = get_thumbnail(image0)
     image1 = get_thumbnail(image1)
+    # print("1")
+    # print(len(image1.getdata()))
+
     images = [image0, image1]
     vectors = []
     norms = []
     for image in images:
         vector = []
+        num = 0
         for pixel_tuple in image.getdata():
+            if pixel_tuple > 10:
+                # print(pixel_tuple)
+                num += 1
             vector.append(average(pixel_tuple))  # guess for RGB tuple
         vectors.append(vector)
         norms.append(linalg.norm(vector, 2))  # 向量2范数
 
     a, b = vectors  # a = v1, b = v2
     a_norm, b_norm = norms  # a_norm = ||v1|| b_norm = ||v2|| 向量长度
+    # print(num)
     return dot(a / a_norm, b / b_norm)
 
 
-path0 = './pic/0.bmp'
-path1 = './pic/1.bmp'
+# path0 = './pic/0.bmp'
+# path1 = './pic/1.bmp'
+path0 = './test/0.png'
+path1 = './test/1.png'
 
 # "path" should be the dictionary path
 """
@@ -67,3 +77,20 @@ print(pixel_avg)
 """
 cosine = image_similarity_vectors_via_numpy(image0, image1)
 print("The cosine similarity: ", cosine)
+
+pic_path = './test'
+pictures = os.listdir(pic_path)
+pictures.sort(key=lambda x:int(x.split('.')[0]))
+print(pictures)
+cosine_similarity = []
+for i in range(999):
+    former_path = os.path.join(pic_path, pictures[0])
+    later_path = os.path.join(pic_path, pictures[i + 1])
+    # print(former_path)
+    # print(later_path)
+    img0 = Image.open(former_path)
+    img1 = Image.open(later_path)
+    temp_cosine = image_similarity_vectors_via_numpy(img0, img1)
+    # print(temp_cosine)
+    cosine_similarity.append(temp_cosine)
+print(cosine_similarity)

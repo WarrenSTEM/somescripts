@@ -1,14 +1,15 @@
 import os
 from imageio import imread
 import numpy as np
-
+from PIL import Image
 
 def cosine(path0, path1):
-    # img0 = imread(path0).reshape(1, -1)  # [[...]]
-    # img1 = imread(path1)
-    # img1 = np.reshape(img1, -1)  # [...]
-    # print(img0)
-    # print(img1)
+    img0 = imread(path0).reshape(1, -1)  # [[...]]
+    img1 = imread(path1)
+    img1 = np.reshape(img1, -1)  # [...]
+    print(img0)
+    print(img1)
+    print(len(img1))
     img0 = np.reshape(imread(path0), -1)
     img1 = np.reshape(imread(path1), -1)
 
@@ -26,19 +27,19 @@ def hist(path0, path1):
 def mulinfo(path0, path1):
     return 1.0
 
-pic_path = "./pic"
+pic_path = "./test_bmp"
 # print(os.listdir(path))
 pictures = os.listdir(pic_path)
 # print(pictures[0])
 # print(type(pictures[0]))
 # print(len(pictures))
 cosine_similarity = []
-for i in range(len(pictures) - 1):
+for i in range(1):
     former_path = os.path.join(pic_path, pictures[i])
     later_path = os.path.join(pic_path, pictures[i + 1])
     temp_cosine = cosine(former_path, later_path)
     cosine_similarity.append(temp_cosine)
 
-
+print(cosine_similarity)
 # for file in os.listdir(path):
     #  此文件下要求全为图片文件

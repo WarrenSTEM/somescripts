@@ -12,8 +12,8 @@ def make_regular_image(image, size=(120, 120)):
 def hist_similarity(lh, rh):
     assert len(lh) == len(rh)
     # zip to tuple
-    return sum(1 - float(abs(l - r)) / max(l, r) for l, r in zip(lh, rh)) / len(lh)
-    # return sum(1 - (0 if l == r else float(abs(l - r)) / max(l, r)) for l, r in zip(lh, rh)) / len(lh)  # the same with above
+    # return sum(1 - float(abs(l - r)) / max(l, r) for l, r in zip(lh, rh)) / len(lh)
+    return sum(1 - (0 if l == r else float(abs(l - r)) / max(l, r)) for l, r in zip(lh, rh)) / len(lh)  # the same with above
 
 # 需要归一化
 def hist_l1_similarity(h0, h1):
@@ -39,8 +39,11 @@ def calc_similarity(li, ri):
 # image0 = make_regular_image(Image.open('./pic/0.bmp'))
 # image1 = make_regular_image(Image.open('./pic/1.bmp'))
 
-image0 = Image.open('./pic/0.bmp')
-image1 = Image.open('./pic/1.bmp')
+# image0 = Image.open('./pic/0.bmp')
+# image1 = Image.open('./pic/1.bmp')
+image0 = Image.open('./test_bmp/0.bmp').convert('L')
+image1 = Image.open('./test_bmp/1.bmp').convert('L')
+# image1.show()
 hist = calc_similarity(image0, image1)
 
 # for debug
