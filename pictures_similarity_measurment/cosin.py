@@ -83,8 +83,8 @@ pictures = os.listdir(pic_path)
 pictures.sort(key=lambda x:int(x.split('.')[0]))
 print(pictures)
 cosine_similarity = []
-for i in range(999):
-    former_path = os.path.join(pic_path, pictures[0])
+for i in range(99):
+    former_path = os.path.join(pic_path, pictures[2])
     later_path = os.path.join(pic_path, pictures[i + 1])
     # print(former_path)
     # print(later_path)
