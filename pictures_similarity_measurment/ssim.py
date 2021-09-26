@@ -10,13 +10,21 @@ from skimage.metrics import structural_similarity
 from imageio import imread
 import numpy as np
 
+from PIL import Image
+from SSIM_PIL import compare_ssim
+
 # image read in the method of array: <class 'imageio.core.util.Array'>
 # image0 = imread('./pic/0.bmp')
 # image1 = imread('./pic/1.bmp')
+#
+image0 = imread('./test/0.png')[:, :, 0]
+image1 = imread('./test/4.png')[:, :, 0]
 
-image0 = imread('./test/0.png')
-image1 = imread('./test/1.png')
-
+# 0, 1, 2 same
+# print(image1[:, :, 0])
+# print(image1[:, :, 1])
+# print(image1[:, :, 2])
+# print(image1[:, :, 3])
 # for debug
 """
 print(type(image0))
@@ -27,6 +35,20 @@ print(type(image0))
 print(image0.shape)
 print(image1.shape)
 
-ssim = structural_similarity(image0, image1, multichannel=True)
+ssim = structural_similarity(image0, image1, multichannel=False)
 
 print("The mean structural similarity: ", ssim)
+# print(structural_similarity(image0, image1, multichannel=True))
+
+# img0 = Image.open('./pic/0.bmp')
+# img1 = Image.open('./pic/1.bmp')
+img0 = Image.open('./test/0.png').convert('L')
+img1 = Image.open('./test/2.png').convert('L')
+
+print(compare_ssim(img0, img1))
+img0 = Image.open('./test/0.png')
+img1 = Image.open('./test/1.png')
+print(compare_ssim(img0, img1))
+
+# image0 = imread('./pic/0.bmp')
+# image1 = imread('./pic/1.bmp')

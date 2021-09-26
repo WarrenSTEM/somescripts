@@ -219,4 +219,6 @@ if __name__ == "__main__":
     print(len(H0))
     print(len(H1))
     print(histogram(H0, H1))
+    # 曝光 本底噪声对此方法结果影响很大
+    # 需要滤除噪声
 
